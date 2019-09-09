@@ -12,7 +12,7 @@ namespace WcfService2
     [ServiceContract]
     public interface IService1
     {
-
+        //Operation contract for sorting the string of comma separated numbers
         [OperationContract]
         string sort(string s);
 
