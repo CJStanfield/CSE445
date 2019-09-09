@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WindowsFormsApp2
@@ -30,6 +23,9 @@ namespace WindowsFormsApp2
 
         }
 
+        
+        //Method used to convert celsius to fahrenheit. It takes the input value and converts to int.
+        //The service is called and the conversion value is returned.
         private void buttonCToF_Click(object sender, EventArgs e)
         {
             try
@@ -41,6 +37,8 @@ namespace WindowsFormsApp2
 
             }catch (Exception ex) { Console.WriteLine(ex); }
         }
+        //Method used to convert fahrenheit to celsius. It takes the input value and converts to int.
+        //The service is called and the conversion value is returned.
         private void buttonFToC_Click(object sender, EventArgs e)
         {
             try
@@ -54,6 +52,7 @@ namespace WindowsFormsApp2
             catch (Exception ex) { Console.WriteLine(ex); }
         }
 
+        //Adding the following two methods increased the reliability of the program.
         private void CelsiusInput_TextChanged(object sender, EventArgs e)
         {
             this.inputTemp1 = CelsiusInput.Text;
