@@ -17,48 +17,55 @@ namespace WebBrowser
             InitializeComponent();
         }
 
+        //method that updates the current window with a new website url
         private void btnGo_Click(object sender, EventArgs e)
         {
             webBrowser1.Navigate(txtUrl.Text);
         }
 
+        //Updates the label to display the correct operator for the calculator
         private void buttonAdd_Click(object sender, EventArgs e)
         {
             try
             {
                 LabelOperator.Text = "+";
             }
-            catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
+            catch (Exception ex) { LabelResult.Text = ex.Message.ToString(); }
         }
 
+        //Updates the label to display the correct operator for the calculator
         private void buttonSub_Click(object sender, EventArgs e)
         {
             try
             {
                 LabelOperator.Text = "-";
             }
-            catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
+            catch (Exception ex) { LabelResult.Text = ex.Message.ToString(); }
         }
 
+        //Updates the label to display the correct operator for the calculator
         private void buttonMult_Click(object sender, EventArgs e)
         {
             try
             {
                 LabelOperator.Text = "*";
             }
-            catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
+            catch (Exception ex) { LabelResult.Text = ex.Message.ToString(); }
         }
 
+        //Updates the label to display the correct operator for the calculator
         private void buttonDiv_Click(object sender, EventArgs e)
         {
             try
             {
                 LabelOperator.Text = "/";
             }
-            catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
+            catch (Exception ex) { LabelResult.Text = ex.Message.ToString(); }
 
         }
 
+        //Clicking this button executes the the operation. If no operators are provided, then return no operator selected
+        //Also displays any errors that might occur in the output label
         private void buttonCalc_Click(object sender, EventArgs e)
         {
             try
@@ -77,9 +84,11 @@ namespace WebBrowser
                 LabelResult.Text = result;
 
             }
-            catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
+            catch (Exception ex) { LabelResult.Text = ex.Message.ToString(); }
         }
 
+        //Clicking this button uses the asu service to get stock price information
+        //This methods gets the price and updates labels accordingly
         private void buttonGetPrice_Click(object sender, EventArgs e)
         {
             try
