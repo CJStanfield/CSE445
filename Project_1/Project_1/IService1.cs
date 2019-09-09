@@ -16,9 +16,17 @@ namespace Project_1
         [OperationContract]
         double PiValue();
 
+        [OperationContract]
+        string Hello();
 
+        [OperationContract]
+        int absValue(int x);
+
+        [OperationContract]
+        int c2f(int x);
+
+        [OperationContract]
+        int f2c(int x);
         // TODO: Add your service operations here
     }
-    
-   
 }
