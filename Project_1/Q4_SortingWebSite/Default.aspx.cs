@@ -11,6 +11,8 @@ public partial class _Default : Page
     {
 
     }
+
+    //Method handles button click to sort the numbers. Uses the service from question 2
     protected void btnSubmit_Click(object sender, EventArgs e)
     {
         SortService.Service1Client myClient = new SortService.Service1Client();
@@ -20,6 +22,8 @@ public partial class _Default : Page
         }catch(Exception ex) { lblSorted.Text = ex.Message.ToString(); }
 
     }
+
+    //This method is used  to update the operator on the screen. Changes the label text to the appropriate operator
     protected void updateOperator_Add(object sender, EventArgs e)
     {
         try
@@ -29,7 +33,8 @@ public partial class _Default : Page
         catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
 
     }
-    
+
+    //This method is used  to update the operator on the screen. Changes the label text to the appropriate operator
     protected void updateOperator_Subtract(object sender, EventArgs e)
     {
         try
@@ -39,6 +44,8 @@ public partial class _Default : Page
         catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
 
     }
+
+    //This method is used  to update the operator on the screen. Changes the label text to the appropriate operator
     protected void updateOperator_Multiply(object sender, EventArgs e)
     {
         try
@@ -48,6 +55,8 @@ public partial class _Default : Page
         catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
 
     }
+
+    //This method is used  to update the operator on the screen. Changes the label text to the appropriate operator
     protected void updateOperator_Divide(object sender, EventArgs e)
     {
         try
@@ -58,6 +67,8 @@ public partial class _Default : Page
 
     }
 
+    //Completes the calculations and updates the labels with the result accordingly. 
+    //NOTE: this was not required for question 4 but wanted to learn more about xml and ASP.net
     protected void Calculator_Result(object sender, EventArgs e)
     {
         try
@@ -79,7 +90,8 @@ public partial class _Default : Page
         catch (Exception ex) { LabelOperator.Text = ex.Message.ToString(); }
 
     }
-
+    //Implemented the search ticker function to get the price of stocks using an ASU service
+    //NOTE: this was not required for question 4 but wanted to learn more about xml and ASP.net
     protected void Search_Ticker(object sender, EventArgs e)
     {
         try
