@@ -22,37 +22,4 @@ namespace e_business
         }
     }
 
-    public class Airline
-    {
-        private int ticketPrice;
-        public int getPrice() { return ticketPrice; }
-        public void airlineFunc()
-        {
-            for(int i = 0; i < 50; i++)
-            {
-                Thread.Sleep(500);
-            }
-        }
-    }
-
-    public class PricingModel
-    {
-
-    }
-
-    public class Buffer
-    {
-
-    }
-
-    public class OrderProcessing
-    {
-
-    }
-
-    public class TravelAgency
-    {
-
-
-    }
 }
