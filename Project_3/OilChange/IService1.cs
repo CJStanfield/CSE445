@@ -6,21 +6,15 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
-namespace Top10WCF
+namespace OilChange
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
+    
     [ServiceContract]
     public interface IService1
     {
 
         [OperationContract]
-        string[] Top10Words(string url);
-
-        [OperationContract]
-        string[] WeatherService(string zipcode);
-        // TODO: Add your service operations here
+        string OilServiceRecommendation(string oilType, int currentMileage, int lastOilChangeMileage);
     }
-
-
-   
 }

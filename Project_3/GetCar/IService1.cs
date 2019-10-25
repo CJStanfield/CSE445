@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 
-namespace Top10WCF
+namespace GetCar
 {
     // NOTE: You can use the "Rename" command on the "Refactor" menu to change the interface name "IService1" in both code and config file together.
     [ServiceContract]
@@ -14,13 +14,11 @@ namespace Top10WCF
     {
 
         [OperationContract]
-        string[] Top10Words(string url);
+        string[] getCar(string year, string make, string model, string zipCode);
 
-        [OperationContract]
-        string[] WeatherService(string zipcode);
         // TODO: Add your service operations here
     }
 
 
-   
+  
 }
