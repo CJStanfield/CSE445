@@ -18,9 +18,19 @@ namespace Top10WCF
 
         [OperationContract]
         string[] WeatherService(string zipcode);
+
+        [OperationContract]
+        string[] getCar(string year, string make, string model, string zipCode);
+
+        [OperationContract]
+        string ScheduleAppointment(string date, string time);
+
+        [OperationContract]
+        string OilServiceRecommendation(string oilType, int currentMileage, int lastOilChangeMileage);
+
         // TODO: Add your service operations here
     }
 
 
-   
+
 }

@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Xml;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace Top10WCF
 {
@@ -97,6 +98,219 @@ namespace Top10WCF
                 FiveDayWeather[0] = e.Message;
                 return FiveDayWeather;
             }
+        }
+
+
+
+        public string[] getCar(string year, string make, string model, string zipCode)
+        {
+            //Get car uses a RESTful api from Market watch. It identifies all used cars in a radius
+            string apiKey = "5EcnjpGYmcy4Baosx3Zog17dKeTTf17D";
+            string apiURL = string.Format("http://api.marketcheck.com/v1/search?api_key={0}&year={1}&make={2}&model={3}&zip={4}&radius=200&car_type=used&start=0&rows=50&sort_order=asc", apiKey, year, make, model, zipCode);
+            string jsonData = null;
+            string[] carsForSale = new string[3];       //Only store the top 3 results
+            try
+            {
+                //Get the weather data and store it in the response object
+                HttpWebRequest requestObject = (HttpWebRequest)WebRequest.Create(apiURL);
+                requestObject.Host = "marketcheck-prod.apigee.net";
+                requestObject.Method = "GET";
+                HttpWebResponse responseObject = null;
+                responseObject = (HttpWebResponse)requestObject.GetResponse();      //Call the api and store the results
+
+
+                using (Stream stream = responseObject.GetResponseStream())
+                {
+                    //data comes in as JSON. Convert the json data to a string so that it can be parsed
+                    StreamReader sr = new StreamReader(stream);
+                    jsonData = sr.ReadToEnd();
+                    sr.Close();
+                }
+                //Convert the string to a real json array. Need to find the "temp_max" element in the json file
+                JToken token = JToken.Parse(jsonData);
+                JArray carArray = (JArray)token.SelectToken("listings");        //identifies the json array that contains all car listings
+
+                int resultCount = 3;
+                if (carArray.Count < 3)
+                {
+                    resultCount = carArray.Count;
+                }
+
+                for (int i = 0; i < resultCount; i++)
+                {
+                    //iterate through the car objects and find all important attributes about the car. ie price mileage, etc
+                    JObject carObject = (JObject)carArray[i];
+                    string url = carObject.SelectToken("vdp_url").ToString();
+                    string price = carObject.SelectToken("ref_price").ToString();
+                    string mileage = carObject.SelectToken("ref_miles").ToString();
+                    carsForSale[i] = string.Format("Year: {0}{1}Make: {2}{3}Model: {4}{5}Price: {6}{7}Mileage: {8}{9}Link: {10}",
+                        year,
+                        Environment.NewLine,
+                        make,
+                        Environment.NewLine,
+                        model,
+                        Environment.NewLine,
+                        price,
+                        Environment.NewLine,
+                        mileage,
+                        Environment.NewLine,
+                        url);
+
+                }
+                return carsForSale;
+            }
+            catch (Exception e)
+            {
+                //Return error message if an error occurs
+                carsForSale[0] = e.Message;
+                return carsForSale;
+            }
+        }
+
+
+        public string ScheduleAppointment(string date, string time)
+        {
+            //This service lets someone schedule an appointment to get their car serviced.
+            //Uses dummy data to check to make sure the time the user wants is actually available
+            int tempAppointmentSize = 100;
+            string returnMessage;
+            Appointment appointment = new Appointment(date, time);      //Create instance of an appointment for the user
+            if (!appointment.getError())
+            {
+                //Generate array of dummy data appointments representing other users who are scheduling appointments
+                //This is done because I do not have access to a database. otherwise appointments would be looked up in database
+                Appointment[] tempAppointments = new Appointment[tempAppointmentSize];                //Since no access to a database, simulate appointments
+                for (int i = 0; i < tempAppointmentSize; i++)
+                {
+                    tempAppointments[i] = new Appointment("generate", "generate");
+                    DateTime temp = tempAppointments[i].getDateTime();
+                    if (tempAppointments[i].getDateTime() == appointment.getDateTime()) //Makes sure that the the appointment does not interfere with other appointments
+                    {
+                        returnMessage = "Sorry. There is already a scheduled appointment at this time.\nPlease input another time.";
+                    }
+                }
+                returnMessage = "Appointment scheduled successfully!";
+
+                return returnMessage;
+
+            }
+            returnMessage = "Date and time information entered incorrectly. Please follow the correct format MM:dd:yyyy HH:mm AM/PM";
+            return returnMessage;
+        }
+
+        public string OilServiceRecommendation(string oilType, int currentMileage, int lastOilChangeMileage)
+        {
+            //Get the mileage difference which will be used for identifying the intervals
+            int mileageDifference = currentMileage - lastOilChangeMileage;
+            string serviceRecommendation = "";
+
+            //Basic error checking. Make sure that no value is less than 0 and that current mielage is not less than last mileage
+            if (currentMileage < lastOilChangeMileage || currentMileage < 0 || lastOilChangeMileage < 0)
+            {
+                return "Mileage values incorrect. Check mileage values to make sure they are not negative or current mileage is not less than the last oil" +
+                    "change mileage";
+            }
+
+            //switch the oil type. There are two different oil change intervals. One for conventional oil and one for synthetic oil.
+            switch (oilType.ToLower())
+            {
+                case "conventional":
+                    //If oil is conventional, oil should be changed every 3000 miles
+                    if (mileageDifference >= 3000)
+                    {
+                        if ((mileageDifference - 3000) > 1000)
+                        {
+                            serviceRecommendation = "Oil change is over 1000 miles past due. Oil change HIGHLY RECOMMENDED!";
+                        }
+                        else
+                            serviceRecommendation = "An oil change is recommended based on the current mileage";
+                    }
+                    else
+                    {
+                        serviceRecommendation = string.Format("Oil still has {0} miles left before requiring an oil change", (3000 - mileageDifference));
+                    }
+                    break;
+                //if ois is synthetic then the oil should be changed  every 8000 miles
+                case "synthetic":
+                    if (mileageDifference >= 8000)
+                    {
+                        if ((mileageDifference - 8000) > 1000)
+                        {
+                            serviceRecommendation = "Oil change is over 1000 miles past due. Oil change HIGHLY RECOMMENDED!";
+                        }
+                        else
+                            serviceRecommendation = "An oil change is recommended based on the current mileage";
+                    }
+                    else
+                    {
+                        serviceRecommendation = string.Format("Oil still has {0} miles left before requiring an oil change", (8000 - mileageDifference));
+                    }
+                    break;
+                default: serviceRecommendation = "Invalid oil type. Please choose either conventional or synthetic oil."; break;
+
+            }
+            return serviceRecommendation;
+        }
+
+
+
+
+
+    }
+
+
+    public class Appointment
+    {
+        //Appointment class helps keep track of day and time of an Appointment
+        //Stores useful information such as the format of the date/time
+        //as well as the date time itself.
+        Random rand = new Random();
+        DateTime dateTime = new DateTime();
+        string dateTimePattern = "MM/dd/yy H:mm";
+        CultureInfo enUS = new CultureInfo("en-US");
+        bool error = false;
+        public Appointment(string date, string time)
+        {
+            if (date == "generate" && time == "generate")
+            {
+                dateTime = generateDateTime();
+            }
+            else
+            {
+                string temp = "5/01/2009 8:30 AM";
+                string dateString = string.Format("{0} {1}", date, time);
+                if (!DateTime.TryParseExact(dateString, "g", enUS, DateTimeStyles.AllowLeadingWhite, out dateTime))
+                {
+                    error = true;
+                }
+            }
+        }
+        //Helper method returs the dateTime object
+        public DateTime getDateTime()
+        {
+            return dateTime;
+        }
+
+        //returns if an error has occured. boolean value
+        public bool getError()
+        {
+            return error;
+        }
+        //Method generates date time. Used for the dummy data
+        public DateTime generateDateTime()
+        {
+            DateTime temp = DateTime.Today;
+
+            TimeSpan timeSpan = new TimeSpan(rand.Next(7, 18), rand.Next(10) % 2 * 30, 0);
+            temp = temp.AddDays(rand.Next(7));
+            temp = temp.Date + timeSpan;
+            return temp;
+        }
+
+        override
+        public string ToString()
+        {
+            return dateTime.ToString(dateTimePattern);
         }
     }
 

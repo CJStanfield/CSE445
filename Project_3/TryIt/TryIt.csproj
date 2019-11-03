@@ -108,9 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
-    <None Include="Connected Services\Assignment5Services\configuration91.svcinfo" />
-    <None Include="Connected Services\Assignment5Services\configuration.svcinfo" />
-    <None Include="Connected Services\Assignment5Services\Reference.svcmap">
+    <None Include="Connected Services\AllServices\configuration91.svcinfo" />
+    <None Include="Connected Services\AllServices\configuration.svcinfo" />
+    <None Include="Connected Services\AllServices\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -132,14 +132,14 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <None Include="Connected Services\Assignment5Services\Service1.wsdl" />
-    <None Include="Connected Services\Assignment5Services\Service1.xsd">
+    <None Include="Connected Services\AllServices\Service1.wsdl" />
+    <None Include="Connected Services\AllServices\Service1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\Assignment5Services\Service11.xsd">
+    <None Include="Connected Services\AllServices\Service11.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\Assignment5Services\Service12.xsd">
+    <None Include="Connected Services\AllServices\Service12.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
@@ -187,7 +187,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Connected Services\Assignment5Services\Reference.cs">
+    <Compile Include="Connected Services\AllServices\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -250,7 +250,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Assignment5Services\" />
+    <WCFMetadataStorage Include="Connected Services\AllServices\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,4 @@
-﻿using System;
+﻿.using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,7 +18,7 @@ namespace TryIt
         {
             //create instance of the service
             ListBoxWeather.Items.Clear();
-            Assignment5Services.Service1Client weather = new Assignment5Services.Service1Client();
+            AllServices.Service1Client weather = new AllServices.Service1Client();
             string input = WeatherInput.Text;
 
             //Call the service and store the result
@@ -36,7 +36,7 @@ namespace TryIt
         {
             //Create instance of service
             ListBoxWords.Items.Clear();
-            Assignment5Services.Service1Client words = new Assignment5Services.Service1Client();
+            AllServices.Service1Client words = new AllServices.Service1Client();
             string input = TopWordsInput.Text;
 
             //Call the service and store the result

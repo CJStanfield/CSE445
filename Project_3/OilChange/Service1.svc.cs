@@ -14,18 +14,22 @@ namespace OilChange
     {
         public string OilServiceRecommendation(string oilType, int currentMileage, int lastOilChangeMileage)
         {
+            //Get the mileage difference which will be used for identifying the intervals
             int mileageDifference = currentMileage - lastOilChangeMileage;
             string serviceRecommendation = "";
             
+            //Basic error checking. Make sure that no value is less than 0 and that current mielage is not less than last mileage
             if(currentMileage < lastOilChangeMileage || currentMileage < 0 || lastOilChangeMileage < 0)
             {
                 return "Mileage values incorrect. Check mileage values to make sure they are not negative or current mileage is not less than the last oil" +
                     "change mileage";
             }
 
+            //switch the oil type. There are two different oil change intervals. One for conventional oil and one for synthetic oil.
             switch (oilType.ToLower())
             {
                 case "conventional":
+                    //If oil is conventional, oil should be changed every 3000 miles
                     if(mileageDifference >= 3000)
                     {
                         if ((mileageDifference - 3000) > 1000) {
@@ -38,6 +42,7 @@ namespace OilChange
                         serviceRecommendation = string.Format("Oil still has {0} miles left before requiring an oil change", (3000 - mileageDifference));
                     }
                     break;
+                    //if ois is synthetic then the oil should be changed  every 8000 miles
                 case "synthetic":
                     if (mileageDifference >= 8000)
                     {
