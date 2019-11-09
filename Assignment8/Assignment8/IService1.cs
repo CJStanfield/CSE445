@@ -16,10 +16,10 @@ namespace Assignment8
     {
 
         [OperationContract]
-        XmlNode search(XmlNode node, string key);
+        XmlNode search(string xml, string key);
 
         [OperationContract]
-        string verification(XmlNode node, XmlSchema schema);
+        string verification(string xml, string schema);
 
         // TODO: Add your service operations here
     }

@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Schema;
 
 namespace Assignment8
@@ -14,15 +15,27 @@ namespace Assignment8
     // NOTE: In order to launch WCF Test Client for testing this service, please select Service1.svc or Service1.svc.cs at the Solution Explorer and start debugging.
     public class Service1 : IService1
     {
-        public XmlNode search(XmlNode node, string key)
+        public XmlNode search(string xml, string key)
         {
 
             return null;
         }
 
-       public string verification(XmlNode node, XmlSchema schema)
+       public string verification(string xml, string schema)
         {
-            return null;
+            try
+            {
+                XmlSchemaSet schemaSet = new XmlSchemaSet();
+                schemaSet.Add("", schema);
+
+                var xdoc = XDocument.Load(xml);
+                xdoc.Validate(schemaSet, null);
+                return "No Error";
+            }catch (Exception ex)
+            {
+                return ex.Message;
+            }
+
         }
     }
 }
