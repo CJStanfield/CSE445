@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+    elementFormDefault="qualified"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="Cars">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Car" minOccurs="0" maxOccurs="unbounded">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Brand"/>
+              <xs:element type="xs:string" name="Model"/>
+              <xs:element type="xs:float" name="Year"/>
+              <xs:element type="xs:float" name="Vin"/>
+              <xs:element name="Engine">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="Fuel">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="Type"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                    <xs:element type="xs:string" name="Size"/>
+                    <xs:element type="xs:float" name="Cylinders"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="Valves" use="required"/>
+                </xs:complexType>
+              </xs:element>
+              <xs:element name="Owner" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="First"/>
+                    <xs:element type="xs:string" name="Last"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="Color" use="required"/>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

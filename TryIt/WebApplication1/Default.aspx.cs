@@ -20,8 +20,8 @@ namespace WebApplication1
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             //Get path of the car.xml file
-            string path = Path.Combine(Path.GetDirectoryName(AppDomain.CurrentDomain.BaseDirectory), @"TestXML\Car.xml");
-            if(XmlInput.Text != "")
+            string path = "https://www.public.asu.edu/~cjstanfi/Assignment7/Cars.xml";
+            if (XmlInput.Text != "")
             {
                 //Only use the path from the website if there is a path to use
                 path = XmlInput.Text;
